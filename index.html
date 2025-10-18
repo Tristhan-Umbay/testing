@@ -165,34 +165,22 @@
       background: linear-gradient(135deg, hsl(var(--primary) / 0.6), hsl(var(--secondary) / 0.5));
     }
 
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.2);
-      animation: float 10s infinite ease-in-out;
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 0 1rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeSlideUp 1.5s ease-out forwards;
     }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
-      50% { transform: translateY(-40px) scale(1.2); opacity: 1; }
-    }
-
-.hero-content {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* full center vertically */
-  padding: 0 1rem;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeSlideUp 1.5s ease-out forwards;
-}
 
     @keyframes fadeSlideUp {
       from { opacity: 0; transform: translateY(40px); }
@@ -264,11 +252,11 @@
       opacity: 0;
       transform: translateY(50px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-      display: none; /* Hide all sections by default */
+      display: none;
     }
 
     section.active {
-      display: block; /* Show only the selected section */
+      display: block;
       opacity: 1;
       transform: translateY(0);
     }
@@ -306,6 +294,62 @@
       display: block;
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* 🔹 Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 0.5rem;
+        height: auto;
+        padding: 0.5rem 0;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 0.7rem;
+      }
+
+      .hero-content {
+        padding: 0 1rem;
+        min-height: auto;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 8vw, 3rem);
+      }
+
+      .hero p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      section {
+        padding: 3rem 1rem;
+      }
+
+      .section-header h2 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+      }
+
+      .section-header p {
+        font-size: 1rem;
+        max-width: 100%;
+      }
+
+      footer {
+        padding: 1.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .lang-select, .nav-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -441,10 +485,8 @@
     }
   };
 
-  // Function to update translations (excluding navbar)
   function updateLanguage(lang) {
     const t = translations[lang];
-
     document.querySelector(".hero h1").textContent = t.heroTitle;
     document.querySelector(".hero p").textContent = t.heroDesc;
     document.querySelector(".btn-hero").textContent = t.btnGetStarted;
@@ -465,30 +507,24 @@
     footer.textContent = t.footer;
   }
 
-  // Initial translation
   updateLanguage(langSelect.value);
 
-  // Change language on select
   langSelect.addEventListener("change", () => {
     updateLanguage(langSelect.value);
   });
 
-  // Show/hide sections
   navLinks.forEach(link => {
     link.addEventListener("click", () => {
       const targetId = link.getAttribute("data-target");
-
       sections.forEach(sec => {
         sec.classList.remove("active");
         if (sec.id === targetId) sec.classList.add("active");
       });
-
       if (targetId === "home") footer.classList.remove("active");
       else footer.classList.add("active");
     });
   });
 </script>
-
-
 </body>
 </html>
+

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NNCHS Research Hub</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: 220 90% 56%;
+      --secondary: 280 80% 60%;
+      --background: 0 0% 100%;
+      --foreground: 222 47% 11%;
+      --border: 214 32% 91%;
+      --muted: 210 40% 96%;
+      --muted-foreground: 215 16% 47%;
+      --primary-foreground: 210 40% 98%;
+    }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      line-height: 1.6;
+      color: hsl(var(--foreground));
+      background: hsl(var(--background));
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* 🔹 Transparent Blurred Navbar */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(20, 20, 20, 0.35);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4.5rem;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      position: relative;
+      font-weight: 500;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.92);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 8px hsl(var(--primary) / 0.8);
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
+      transition: width 0.3s ease;
+      border-radius: 5px;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-btn {
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .nav-btn:hover {
+      background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+      border-color: transparent;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px hsl(var(--primary) / 0.4);
+    }
+
+    .lang-select {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 0.5rem;
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+      font-weight: 500;
+      backdrop-filter: blur(8px);
+    }
+
+    /* 🔹 Hero Section */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      color: white;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('1.jpg') center/cover no-repeat;
+      filter: brightness(0.55);
+      animation: bgPulse 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes bgPulse {
+      from { transform: scale(1); filter: brightness(0.55); }
+      to { transform: scale(1.05); filter: brightness(0.7); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, hsl(var(--primary) / 0.6), hsl(var(--secondary) / 0.5));
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
+      50% { transform: translateY(-40px) scale(1.2); opacity: 1; }
+    }
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* full center vertically */
+  padding: 0 1rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideUp 1.5s ease-out forwards;
+}
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      animation: glowText 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes glowText {
+      from { text-shadow: 0 0 10px hsl(var(--primary)); }
+      to { text-shadow: 0 0 25px hsl(var(--secondary)); }
+    }
+
+    .hero p {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      max-width: 48rem;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.9rem 1.8rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .btn-hero {
+      background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
+      color: white;
+    }
+
+    .btn-hero:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px hsl(var(--primary) / 0.4);
+    }
+
+    .btn-outline {
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-3px);
+    }
+
+    /* 🔹 Section Styles */
+    section {
+      padding: 5rem 1rem;
+      color: hsl(var(--foreground));
+      min-height: 100vh;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      display: none; /* Hide all sections by default */
+    }
+
+    section.active {
+      display: block; /* Show only the selected section */
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--secondary)));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-header p {
+      font-size: 1.2rem;
+      color: hsl(var(--muted-foreground));
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: hsl(var(--muted-foreground));
+      border-top: 1px solid hsl(var(--border));
+      display: none;
+    }
+
+    footer.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- 🔹 Navbar -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="#" class="logo no-translate">NNCHS Research Hub</a>
+        <nav>
+          <a data-target="home">Home</a>
+          <a data-target="project">Project</a>
+          <a data-target="strand">Strand</a>
+          <a data-target="about">About</a>
+          <a data-target="favorite">My Favorite</a>
+          <select class="lang-select" id="langSelect" style="color: black;">
+            <option value="en">English</option>
+            <option value="tl">Tagalog</option>
+            <option value="ceb">Bisaya</option>
+          </select>
+          <button class="nav-btn" data-lang="login">Login</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- 🔹 Hero Section -->
+  <section class="hero active" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <h1>NNCHS Research Hub</h1>
+      <p>A collaborative space where researchers, students, and professionals unite to conduct, share, and apply groundbreaking research.</p>
+      <div class="hero-buttons">
+        <button class="btn btn-hero">Get Started</button>
+        <button class="btn btn-outline">Learn More</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="project">
+    <div class="container">
+      <div class="section-header">
+        <h2>Project Section</h2>
+        <p>Showcase of research projects and studies conducted in the hub.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="strand">
+    <div class="container">
+      <div class="section-header">
+        <h2>Strand Section</h2>
+        <p>Information about different research strands and their focus areas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2>About</h2>
+        <p>Learn more about the mission and vision of the NNCHS Research Hub.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="favorite">
+    <div class="container">
+      <div class="section-header">
+        <h2>My Favorite</h2>
+        <p>Personal favorite topics, studies, or innovations related to research.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="footer">
+    <p>© 2025 NNCHS Research Hub. Advancing knowledge through collaboration.</p>
+  </footer>
+
+<script>
+  const navLinks = document.querySelectorAll("nav a[data-target]");
+  const sections = document.querySelectorAll("section");
+  const footer = document.querySelector("footer");
+  const langSelect = document.getElementById("langSelect");
+
+  // Translation data (excluding navbar)
+  const translations = {
+    en: {
+      heroTitle: "NNCHS Research Hub",
+      heroDesc: "A collaborative space where researchers, students, and professionals unite to conduct, share, and apply groundbreaking research.",
+      btnGetStarted: "Get Started",
+      btnLearnMore: "Learn More",
+      projectTitle: "Project Section",
+      projectDesc: "Showcase of research projects and studies conducted in the hub.",
+      strandTitle: "Strand Section",
+      strandDesc: "Information about different research strands and their focus areas.",
+      aboutTitle: "About",
+      aboutDesc: "Learn more about the mission and vision of the NNCHS Research Hub.",
+      favoriteTitle: "My Favorite",
+      favoriteDesc: "Personal favorite topics, studies, or innovations related to research.",
+      footer: "© 2025 NNCHS Research Hub. Advancing knowledge through collaboration."
+    },
+    tl: {
+      heroTitle: "NNCHS Research Hub",
+      heroDesc: "Isang kolaboratibong espasyo kung saan nagkakaisa ang mga mananaliksik, estudyante, at propesyonal upang magsagawa, magbahagi, at magpatupad ng makabagong pananaliksik.",
+      btnGetStarted: "Magsimula",
+      btnLearnMore: "Matuto Pa",
+      projectTitle: "Seksyon ng Proyekto",
+      projectDesc: "Ipinapakita ang mga proyekto at pag-aaral na isinagawa sa hub.",
+      strandTitle: "Seksyon ng Sangay",
+      strandDesc: "Impormasyon tungkol sa iba't ibang sangay ng pananaliksik at kanilang mga pokus na larangan.",
+      aboutTitle: "Tungkol sa Amin",
+      aboutDesc: "Alamin pa ang misyon at bisyon ng NNCHS Research Hub.",
+      favoriteTitle: "Paborito Ko",
+      favoriteDesc: "Mga personal na paboritong paksa, pag-aaral, o inobasyon kaugnay ng pananaliksik.",
+      footer: "© 2025 NNCHS Research Hub. Pagsulong ng kaalaman sa pamamagitan ng kolaborasyon."
+    },
+    ceb: {
+      heroTitle: "NNCHS Research Hub",
+      heroDesc: "Usa ka kolaboratibong luna diin nagtinabangay ang mga mananaliksik, estudyante, ug propesyonal aron magsugod, magpaambit, ug mag-aplikar sa makabag-ong panukiduki.",
+      btnGetStarted: "Sugdi",
+      btnLearnMore: "Kat-oni Pa",
+      projectTitle: "Seksyon sa Proyekto",
+      projectDesc: "Pagpakita sa mga proyekto ug pagtuon nga gihimo sa hub.",
+      strandTitle: "Seksyon sa Sanga",
+      strandDesc: "Impormasyon bahin sa lain-laing sanga sa panukiduki ug ilang focus area.",
+      aboutTitle: "Mahitungod",
+      aboutDesc: "Pagkat-on pa bahin sa misyon ug panan-aw sa NNCHS Research Hub.",
+      favoriteTitle: "Paborito Ko",
+      favoriteDesc: "Personal nga paborito nga mga topiko, pagtuon, o inobasyon nga may kalabotan sa panukiduki.",
+      footer: "© 2025 NNCHS Research Hub. Pagpalambo sa kahibalo pinaagi sa kolaborasyon."
+    }
+  };
+
+  // Function to update translations (excluding navbar)
+  function updateLanguage(lang) {
+    const t = translations[lang];
+
+    document.querySelector(".hero h1").textContent = t.heroTitle;
+    document.querySelector(".hero p").textContent = t.heroDesc;
+    document.querySelector(".btn-hero").textContent = t.btnGetStarted;
+    document.querySelector(".btn-outline").textContent = t.btnLearnMore;
+
+    document.querySelector("#project .section-header h2").textContent = t.projectTitle;
+    document.querySelector("#project .section-header p").textContent = t.projectDesc;
+
+    document.querySelector("#strand .section-header h2").textContent = t.strandTitle;
+    document.querySelector("#strand .section-header p").textContent = t.strandDesc;
+
+    document.querySelector("#about .section-header h2").textContent = t.aboutTitle;
+    document.querySelector("#about .section-header p").textContent = t.aboutDesc;
+
+    document.querySelector("#favorite .section-header h2").textContent = t.favoriteTitle;
+    document.querySelector("#favorite .section-header p").textContent = t.favoriteDesc;
+
+    footer.textContent = t.footer;
+  }
+
+  // Initial translation
+  updateLanguage(langSelect.value);
+
+  // Change language on select
+  langSelect.addEventListener("change", () => {
+    updateLanguage(langSelect.value);
+  });
+
+  // Show/hide sections
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      const targetId = link.getAttribute("data-target");
+
+      sections.forEach(sec => {
+        sec.classList.remove("active");
+        if (sec.id === targetId) sec.classList.add("active");
+      });
+
+      if (targetId === "home") footer.classList.remove("active");
+      else footer.classList.add("active");
+    });
+  });
+</script>
+
+
+</body>
+</html>

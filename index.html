@@ -38,7 +38,7 @@
       padding: 0 1rem;
     }
 
-    /* 🔹 Transparent Blurred Navbar */
+    /* 🔹 Navbar */
     header {
       position: fixed;
       top: 0;
@@ -135,6 +135,21 @@
       backdrop-filter: blur(8px);
     }
 
+    /* Hamburger Button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+    }
+
     /* 🔹 Hero Section */
     .hero {
       position: relative;
@@ -144,6 +159,7 @@
       justify-content: center;
       overflow: hidden;
       color: white;
+      padding-top: 4.5rem;
     }
 
     .hero-bg {
@@ -244,7 +260,7 @@
       transform: translateY(-3px);
     }
 
-    /* 🔹 Section Styles */
+    /* 🔹 Sections */
     section {
       padding: 5rem 1rem;
       color: hsl(var(--foreground));
@@ -296,76 +312,55 @@
       transform: translateY(0);
     }
 
-    /* 🔹 Mobile Responsiveness */
+    /* 🔹 Mobile Navbar */
     @media (max-width: 768px) {
-      .header-content {
-        flex-direction: column;
-        gap: 0.5rem;
-        height: auto;
-        padding: 0.5rem 0;
-      }
-
       nav {
-        flex-direction: column;
-        gap: 0.7rem;
-      }
-
-      .hero-content {
-        padding: 0 1rem;
-        min-height: auto;
-      }
-
-      .hero h1 {
-        font-size: clamp(2rem, 8vw, 3rem);
-      }
-
-      .hero p {
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .hero-buttons {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-
-      section {
-        padding: 3rem 1rem;
-      }
-
-      .section-header h2 {
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
-      }
-
-      .section-header p {
-        font-size: 1rem;
-        max-width: 100%;
-      }
-
-      footer {
-        padding: 1.5rem 1rem;
-        font-size: 0.9rem;
-      }
-
-      .lang-select, .nav-btn {
+        position: absolute;
+        top: 4.5rem;
+        left: 0;
         width: 100%;
+        background: rgba(20, 20, 20, 0.9);
+        flex-direction: column;
+        gap: 0;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease;
+      }
+
+      nav.open {
+        max-height: 500px;
+      }
+
+      nav a, .nav-btn, .lang-select {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        text-align: center;
+      }
+
+      .hamburger {
+        display: flex;
       }
     }
   </style>
 </head>
 <body>
-  <!-- 🔹 Navbar -->
+  <!-- Navbar -->
   <header>
     <div class="container">
       <div class="header-content">
         <a href="#" class="logo no-translate">NNCHS Research Hub</a>
-        <nav>
+        <div class="hamburger" id="hamburger">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <nav id="navMenu">
           <a data-target="home">Home</a>
           <a data-target="project">Project</a>
           <a data-target="strand">Strand</a>
           <a data-target="about">About</a>
           <a data-target="favorite">My Favorite</a>
-          <select class="lang-select" id="langSelect" style="color: black;">
+          <select class="lang-select" id="langSelect" style="color:black;">
             <option value="en">English</option>
             <option value="tl">Tagalog</option>
             <option value="ceb">Bisaya</option>
@@ -376,7 +371,7 @@
     </div>
   </header>
 
-  <!-- 🔹 Hero Section -->
+  <!-- Hero Section -->
   <section class="hero active" id="home">
     <div class="hero-bg"></div>
     <div class="hero-overlay"></div>
@@ -435,8 +430,15 @@
   const sections = document.querySelectorAll("section");
   const footer = document.querySelector("footer");
   const langSelect = document.getElementById("langSelect");
+  const hamburger = document.getElementById("hamburger");
+  const navMenu = document.getElementById("navMenu");
 
-  // Translation data (excluding navbar)
+  // Hamburger toggle
+  hamburger.addEventListener("click", () => {
+    navMenu.classList.toggle("open");
+  });
+
+  // Translations
   const translations = {
     en: {
       heroTitle: "NNCHS Research Hub",
@@ -491,27 +493,19 @@
     document.querySelector(".hero p").textContent = t.heroDesc;
     document.querySelector(".btn-hero").textContent = t.btnGetStarted;
     document.querySelector(".btn-outline").textContent = t.btnLearnMore;
-
     document.querySelector("#project .section-header h2").textContent = t.projectTitle;
     document.querySelector("#project .section-header p").textContent = t.projectDesc;
-
     document.querySelector("#strand .section-header h2").textContent = t.strandTitle;
     document.querySelector("#strand .section-header p").textContent = t.strandDesc;
-
     document.querySelector("#about .section-header h2").textContent = t.aboutTitle;
     document.querySelector("#about .section-header p").textContent = t.aboutDesc;
-
     document.querySelector("#favorite .section-header h2").textContent = t.favoriteTitle;
     document.querySelector("#favorite .section-header p").textContent = t.favoriteDesc;
-
     footer.textContent = t.footer;
   }
 
   updateLanguage(langSelect.value);
-
-  langSelect.addEventListener("change", () => {
-    updateLanguage(langSelect.value);
-  });
+  langSelect.addEventListener("change", () => updateLanguage(langSelect.value));
 
   navLinks.forEach(link => {
     link.addEventListener("click", () => {
@@ -522,9 +516,9 @@
       });
       if (targetId === "home") footer.classList.remove("active");
       else footer.classList.add("active");
+      navMenu.classList.remove("open"); // close menu after click
     });
   });
 </script>
 </body>
 </html>
-

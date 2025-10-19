@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Strands | NNCHS Research Hub</title>
+  <link rel="icon" type="image/x-icon" href="icon.jpg">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, hsl(220, 90%, 15%), hsl(220, 80%, 20%), hsl(230, 70%, 25%));
+      color: #f4f6fa;
+      overflow-x: hidden;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    /* ✅ Light Mode */
+    body.light-mode {
+      background: linear-gradient(135deg, hsl(220, 20%, 95%), hsl(220, 15%, 90%), hsl(230, 10%, 85%));
+      color: #1a1a1a;
+    }
+
+    /* Fade-in Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease-out forwards;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 30px;
+      background: linear-gradient(90deg, hsl(220, 90%, 56%), hsl(280, 80%, 60%));
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      z-index: 10;
+    }
+
+    .back-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Section */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 5%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, hsl(220, 90%, 65%), hsl(280, 80%, 70%));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    p {
+      max-width: 800px;
+      margin-bottom: 50px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: hsl(220, 20%, 85%);
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    /* Strand Cards */
+    .strand-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      width: 100%;
+      max-width: 1200px;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    .strand-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: left;
+    }
+
+    .strand-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .strand-card h2 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, hsl(220, 90%, 60%), hsl(280, 80%, 65%));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .strand-card p {
+      color: hsl(220, 30%, 90%);
+      font-size: 1rem;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* ✅ Light Mode Adjustments */
+    body.light-mode p {
+      color: #1a1a1a;
+    }
+
+    body.light-mode .strand-card {
+      background: rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-mode .strand-card:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    body.light-mode .strand-card p {
+      color: #111;
+    }
+
+    body.light-mode footer {
+      background: rgba(255, 255, 255, 0.4);
+      color: #333;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      font-size: 0.9rem;
+      color: hsl(220, 10%, 75%);
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(6px);
+      margin-top: 40px;
+      transition: background 0.5s, color 0.5s;
+    }
+  </style>
+</head>
+<body>
+
+  <button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
+
+  <section class="fade-in">
+    <h1>Senior High School Strands</h1>
+    <p>Explore the academic and technical-vocational strands offered at NNCHS. Each strand helps students build essential skills and prepare for their future careers.</p>
+
+    <div class="strand-container">
+      <div class="strand-card fade-in">
+        <h2>STEM (Science, Technology, Engineering, and Mathematics)</h2>
+        <p>Focuses on scientific and mathematical concepts, preparing students for courses like engineering, medicine, and computer science.</p>
+      </div>
+
+      <div class="strand-card fade-in">
+        <h2>HUMSS (Humanities and Social Sciences)</h2>
+        <p>Ideal for students who enjoy writing, public speaking, and understanding society. Prepares them for careers in education, law, or communication.</p>
+      </div>
+
+      <div class="strand-card fade-in">
+        <h2>ABM (Accountancy, Business, and Management)</h2>
+        <p>Develops leadership, financial literacy, and business management skills for students aspiring to be entrepreneurs or business professionals.</p>
+      </div>
+
+      <div class="strand-card fade-in">
+        <h2>GAS (General Academic Strand)</h2>
+        <p>Provides a balanced curriculum for students who are still exploring their future paths, offering subjects across all disciplines.</p>
+      </div>
+
+      <div class="strand-card fade-in">
+        <h2>TVL (Technical-Vocational-Livelihood)</h2>
+        <p>Offers hands-on technical training for students aiming to work immediately after senior high school in various industries.</p>
+      </div>
+
+      <div class="strand-card fade-in">
+        <h2>ICT (Information and Communications Technology)</h2>
+        <p>Builds computer, programming, and networking skills for those interested in technology, digital systems, and software development.</p>
+      </div>
+
+      <div class="strand-card fade-in">
+        <h2>AFA (Agri-Fishery Arts)</h2>
+        <p>Focuses on agriculture and aquaculture, equipping students with practical knowledge in sustainable farming and fishery practices.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 NNCHS Research Hub | All Rights Reserved
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.style.opacity = 1;
+      });
+    }, { threshold: 0.2 });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+    /* ✅ Sync Dark Mode with index.html */
+    window.addEventListener("load", () => {
+      const darkModeEnabled = localStorage.getItem("darkMode") === "true";
+      if (!darkModeEnabled) {
+        document.body.classList.add("light-mode");
+      }
+    });
+  </script>
+</body>
+</html>

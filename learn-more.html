@@ -24,6 +24,8 @@ body {
   overflow-x:hidden;
   scroll-behavior:smooth;
   position: relative;
+  opacity:0;
+  animation: pageFadeIn 1s forwards;
 }
 
 .back-btn {
@@ -51,6 +53,7 @@ body {
   padding:2rem;
   margin-bottom:2rem;
   width:100%;
+  opacity:0;
   animation: fadeSlideUp 1s ease forwards;
 }
 
@@ -65,15 +68,16 @@ h1 {
 h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom:1rem; color:hsl(var(--primary)); }
 p, li { font-size:1rem; margin-bottom:1rem; opacity:0.9; }
 
-.features-wrapper { display:flex; flex-direction:column; gap:2rem; }
+.features-wrapper { display:flex; flex-direction:column; gap:2rem; opacity:0; animation: fadeSlideUp 1s ease 0.3s forwards; }
 @media(min-width:768px){ .features-wrapper { flex-direction:row; gap:2rem; } .features-wrapper>div{ flex:1; } }
 
-.particle { position:absolute; border-radius:50%; background:rgba(255,255,255,0.15); animation: float 15s infinite ease-in-out; }
+.particle { position:absolute; border-radius:50%; background:rgba(255,255,255,0.15); animation: float 15s infinite ease-in-out, fadeSlideUp 1s ease forwards; }
 @keyframes float { 0%,100%{ transform:translateY(0) scale(1); opacity:0.5;} 50%{ transform:translateY(-40px) scale(1.2); opacity:1;} }
 
 @keyframes fadeSlideUp { from {opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
+@keyframes pageFadeIn { from {opacity:0;} to {opacity:1;} }
 
-.ask-ai { margin-top:1.5rem; padding:1rem 1.2rem; background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-radius:10px; }
+.ask-ai { margin-top:1.5rem; padding:1rem 1.2rem; background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-radius:10px; opacity:0; animation: fadeSlideUp 1s ease 0.5s forwards; }
 .ask-ai h3 { font-size:1.2rem; color:hsl(var(--secondary)); margin-bottom:0.5rem; }
 .ask-ai p { font-size:0.95rem; opacity:0.85; }
 
@@ -87,7 +91,7 @@ p, li { font-size:1rem; margin-bottom:1rem; opacity:0.9; }
 .ai-suggestions button { padding:0.3rem 0.7rem; border:none; border-radius:6px; cursor:pointer; background:rgba(255,255,255,0.1); transition:0.2s; }
 .ai-suggestions button:hover { background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary))); color:white; }
 
-footer { text-align:center; padding:1rem 0; font-size:0.9rem; color:hsl(215 16% 47%); }
+footer { text-align:center; padding:1rem 0; font-size:0.9rem; color:hsl(215 16% 47%); opacity:0; animation: fadeSlideUp 1s ease 0.7s forwards; }
 
 @media(max-width:768px){ .features-wrapper { flex-direction:column; } }
 
@@ -151,7 +155,7 @@ body.dark-mode .ask-ai { background: rgba(255,255,255,0.08); }
 </footer>
 
 <script>
-// Expanded Knowledge Base
+// Knowledge Base & AI logic (unchanged)
 const knowledgeBase = [
   {keywords:["nnchs research hub","hub"], answer:"The NNCHS Research Hub is a collaborative platform connecting researchers, students, and professionals. It facilitates projects, sharing of resources, and innovation."},
   {keywords:["projects","research projects","yearly projects","years"], answer:"The hub conducts research projects every year, including STEM, HUMSS, ABM, ICT, TVL, AFA, and GAS. Examples include: 2019 - STEM Robotics, 2020 - HUMSS Social Study, 2021 - ABM Marketing Plan, 2022 - STEM AI Project, 2023 - HUMSS Cultural Study, 2024 - AFA Fishery Innovation."},
@@ -177,7 +181,6 @@ const knowledgeBase = [
   {keywords:["tips","research tips"], answer:"Tips: Plan your research, choose the right method, document your process, and collaborate with team members for better results."}
 ];
 
-// DOM Elements
 const askBtn = document.getElementById("askBtn");
 const aiInput = document.getElementById("aiInput");
 const aiResponse = document.getElementById("aiResponse");
@@ -224,13 +227,11 @@ askBtn.addEventListener("click", askQuestion);
 aiInput.addEventListener("keypress", e => { if(e.key === "Enter") askQuestion(); });
 </script>
 
-<!-- DARK MODE SCRIPT -->
 <script>
-  // Apply saved dark mode on page load
+  // Dark mode persistence
   window.addEventListener("load", ()=>{
     const darkModeSaved = localStorage.getItem("darkMode") === "true";
     document.body.classList.toggle("dark-mode", darkModeSaved);
-
     const darkModeToggle = document.getElementById("darkModeToggle");
     if(darkModeToggle) darkModeToggle.checked = darkModeSaved;
   });

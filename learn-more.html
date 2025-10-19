@@ -4,119 +4,205 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Learn More | NNCHS Research Hub</title>
+
 <style>
-* {margin:0; padding:0; box-sizing:border-box;}
-:root {
-  --primary: 220 90% 56%;
-  --secondary: 280 80% 60%;
-  --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
-  --font-size: 16px;
-  --scale: 1;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
+/* Background and text colors */
 body {
-  font-family:"Poppins", Arial, sans-serif;
-  line-height:1.6;
-  color:hsl(var(--foreground));
-  background:hsl(var(--background));
-  font-size: calc(var(--font-size) * var(--scale));
-  overflow-x:hidden;
-  scroll-behavior:smooth;
-  position: relative;
-  opacity:0;
-  animation: pageFadeIn 1s forwards;
+  background: linear-gradient(135deg, hsl(220, 90%, 15%), hsl(220, 80%, 20%), hsl(230, 70%, 25%));
+  color: #f4f6fa;
+  overflow-x: hidden;
+  transition: background 0.5s, color 0.5s;
 }
 
+/* Light mode */
+body.light-mode {
+  background: linear-gradient(135deg, hsl(220, 20%, 95%), hsl(220, 15%, 90%), hsl(230, 10%, 85%));
+  color: #1a1a1a;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Back Button */
 .back-btn {
   position: fixed;
-  top: 1rem;
-  left: 1rem;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
-  color: white;
+  top: 20px;
+  left: 30px;
+  background: linear-gradient(90deg, hsl(220, 90%, 56%), hsl(280, 80%, 60%));
   border: none;
-  border-radius: 8px;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: 500;
-  z-index: 1000;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 10;
 }
-.back-btn:hover { transform: translateY(-2px); }
-
-.content-wrapper { display:flex; flex-direction:column; align-items:center; margin:6rem auto 4rem; padding:2rem; max-width:1200px; }
-.content-card {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding:2rem;
-  margin-bottom:2rem;
-  width:100%;
-  opacity:0;
-  animation: fadeSlideUp 1s ease forwards;
+.back-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
 }
 
+/* Main layout */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 5%;
+  text-align: center;
+  animation: fadeIn 1s ease-out forwards;
+}
+
+/* Titles and paragraphs */
 h1 {
-  font-size: clamp(2rem, 4vw, 3rem);
-  margin-bottom:1rem;
-  text-align:center;
-  background: linear-gradient(90deg,hsl(var(--primary)),hsl(var(--secondary)));
+  font-size: 3rem;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, hsl(220, 90%, 65%), hsl(280, 80%, 70%));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom:1rem; color:hsl(var(--primary)); }
-p, li { font-size:1rem; margin-bottom:1rem; opacity:0.9; }
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, hsl(220, 90%, 60%), hsl(280, 80%, 65%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+p, li {
+  color: hsl(220, 30%, 90%);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
 
-.features-wrapper { display:flex; flex-direction:column; gap:2rem; opacity:0; animation: fadeSlideUp 1s ease 0.3s forwards; }
-@media(min-width:768px){ .features-wrapper { flex-direction:row; gap:2rem; } .features-wrapper>div{ flex:1; } }
+/* ✅ Better text color in light mode */
+body.light-mode p,
+body.light-mode li,
+body.light-mode .answer {
+  color: #222;
+}
 
-.particle { position:absolute; border-radius:50%; background:rgba(255,255,255,0.15); animation: float 15s infinite ease-in-out, fadeSlideUp 1s ease forwards; }
-@keyframes float { 0%,100%{ transform:translateY(0) scale(1); opacity:0.5;} 50%{ transform:translateY(-40px) scale(1.2); opacity:1;} }
+/* Card design */
+.content-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 1200px;
+  text-align: left;
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+.content-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.15);
+}
 
-@keyframes fadeSlideUp { from {opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
-@keyframes pageFadeIn { from {opacity:0;} to {opacity:1;} }
+/* ✅ Light mode cards */
+body.light-mode .content-card {
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+body.light-mode .content-card:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
 
-.ask-ai { margin-top:1.5rem; padding:1rem 1.2rem; background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-radius:10px; opacity:0; animation: fadeSlideUp 1s ease 0.5s forwards; }
-.ask-ai h3 { font-size:1.2rem; color:hsl(var(--secondary)); margin-bottom:0.5rem; }
-.ask-ai p { font-size:0.95rem; opacity:0.85; }
+/* Features section */
+.features-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+}
 
-.ai-input { width:100%; padding:0.6rem; border-radius:8px; border:1px solid rgba(0,0,0,0.2); margin-bottom:0.8rem; font-size:1rem; }
-.ai-btn { padding:0.5rem 1rem; border-radius:8px; border:none; background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary))); color:white; cursor:pointer; font-weight:500; transition: transform 0.2s; }
-.ai-btn:hover { transform: translateY(-2px); }
+/* Possible Questions Section */
+.questions-section {
+  margin-top: 2rem;
+}
+.question {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.question:hover {
+  background: linear-gradient(90deg, hsl(220, 90%, 56%), hsl(280, 80%, 60%));
+  transform: scale(1.02);
+}
+.answer {
+  display: none;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  color: hsl(220, 30%, 90%);
+}
 
-.ai-response { margin-top:0.8rem; background: rgba(255,255,255,0.05); padding:0.8rem; border-radius:8px; min-height:50px; font-size:0.95rem; line-height:1.4; white-space: pre-wrap; }
+/* ✅ Light mode question cards */
+body.light-mode .question {
+  background: rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+body.light-mode .question:hover {
+  background: linear-gradient(90deg, hsl(220, 80%, 70%), hsl(280, 70%, 75%));
+  color: #fff;
+}
+body.light-mode .answer {
+  background: rgba(0, 0, 0, 0.05);
+  color: #111;
+}
 
-.ai-suggestions { margin-top:0.5rem; display:flex; flex-wrap:wrap; gap:0.5rem; }
-.ai-suggestions button { padding:0.3rem 0.7rem; border:none; border-radius:6px; cursor:pointer; background:rgba(255,255,255,0.1); transition:0.2s; }
-.ai-suggestions button:hover { background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary))); color:white; }
+/* Footer */
+footer {
+  text-align: center;
+  padding: 25px;
+  font-size: 0.9rem;
+  color: hsl(220, 10%, 75%);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  margin-top: 40px;
+}
 
-footer { text-align:center; padding:1rem 0; font-size:0.9rem; color:hsl(215 16% 47%); opacity:0; animation: fadeSlideUp 1s ease 0.7s forwards; }
-
-@media(max-width:768px){ .features-wrapper { flex-direction:column; } }
-
-/* DARK MODE STYLES */
-body.dark-mode { background:hsl(220,15%,10%); color:hsl(0,0%,95%); }
-body.dark-mode footer { color:hsl(0,0%,80%); }
-body.dark-mode .content-card { background: rgba(255,255,255,0.05); }
-body.dark-mode .ask-ai { background: rgba(255,255,255,0.08); }
+/* Light mode footer */
+body.light-mode footer {
+  background: rgba(255, 255, 255, 0.4);
+  color: #333;
+}
 </style>
 </head>
+
 <body>
 
 <button class="back-btn" onclick="window.history.back()">← Back</button>
 
-<div class="particle" style="width:20px;height:20px;left:10%;top:40%;animation-delay:0s;"></div>
-<div class="particle" style="width:15px;height:15px;left:80%;top:60%;animation-delay:2s;"></div>
-<div class="particle" style="width:25px;height:25px;left:40%;top:20%;animation-delay:4s;"></div>
-
 <div class="content-wrapper">
-  <div class="content-card">
+  <div class="content-card fade-in">
     <h1>Learn More About NNCHS Research Hub</h1>
     <p>The NNCHS Research Hub is a collaborative platform for researchers, students, and professionals. It provides a space for sharing ideas, conducting projects, and developing innovative solutions.</p>
   </div>
 
-  <div class="features-wrapper">
+  <div class="features-wrapper fade-in">
     <div class="content-card">
       <h2>Features</h2>
       <ul>
@@ -130,111 +216,51 @@ body.dark-mode .ask-ai { background: rgba(255,255,255,0.08); }
     </div>
 
     <div class="content-card">
-      <h2>Getting Started</h2>
-      <p>To get started, return to the <a href="index.html">home page</a> and explore available projects or join the hub by logging in.</p>
-
-      <div class="ask-ai">
-        <h3>Ask AI</h3>
-        <input type="text" placeholder="Type your question..." class="ai-input" id="aiInput">
-        <button class="ai-btn" id="askBtn">Ask</button>
-        <div class="ai-response" id="aiResponse"></div>
-        <div class="ai-suggestions">
-          <button onclick="askPreset('What is NNCHS Research Hub?')">What is NNCHS Research Hub?</button>
-          <button onclick="askPreset('Explain the strands')">Explain the strands</button>
-          <button onclick="askPreset('What is AFA strand?')">What is AFA strand?</button>
-          <button onclick="askPreset('Tell me the yearly projects')">Tell me the yearly projects</button>
-          <button onclick="askPreset('How to join a project?')">How to join a project?</button>
-        </div>
-      </div>
+      <h2>Possible Questions</h2>
+      <div class="questions-section" id="questionList"></div>
+      <div id="answerDisplay"></div>
     </div>
   </div>
 </div>
 
-<footer>
-  <p>© 2025 NNCHS Research Hub.</p>
-</footer>
+<footer>© 2025 NNCHS Research Hub.</footer>
 
 <script>
-// Knowledge Base & AI logic (unchanged)
-const knowledgeBase = [
-  {keywords:["nnchs research hub","hub"], answer:"The NNCHS Research Hub is a collaborative platform connecting researchers, students, and professionals. It facilitates projects, sharing of resources, and innovation."},
-  {keywords:["projects","research projects","yearly projects","years"], answer:"The hub conducts research projects every year, including STEM, HUMSS, ABM, ICT, TVL, AFA, and GAS. Examples include: 2019 - STEM Robotics, 2020 - HUMSS Social Study, 2021 - ABM Marketing Plan, 2022 - STEM AI Project, 2023 - HUMSS Cultural Study, 2024 - AFA Fishery Innovation."},
-  {keywords:["strands","strand"], answer:"The strands offered include STEM, HUMSS, ABM, ICT, TVL, AFA, and GAS. Each strand focuses on specific skills and research areas."},
-  {keywords:["stem"], answer:"STEM (Science, Technology, Engineering, Mathematics) strand prepares students for scientific and technical careers with projects like AI and robotics."},
-  {keywords:["humss"], answer:"HUMSS (Humanities and Social Sciences) strand emphasizes communication, research, and social studies with projects like cultural studies and social research."},
-  {keywords:["abm"], answer:"ABM (Accountancy, Business, Management) strand focuses on business, management, and entrepreneurship skills, including marketing and finance research."},
-  {keywords:["tvl"], answer:"TVL (Technical-Vocational-Livelihood) strand teaches technical and practical skills in trades such as robotics, electronics, and culinary arts."},
-  {keywords:["ict"], answer:"ICT (Information and Communications Technology) strand provides knowledge in programming, computer systems, and digital technology projects."},
-  {keywords:["afa","agriculture","fishery","arts"], answer:"AFA (Agriculture, Fishery, Arts) strand develops skills in agriculture, fishery, and creative arts like painting or design."},
-  {keywords:["gas","general academic strand"], answer:"GAS (General Academic Strand) is a flexible strand covering a mix of subjects from different strands for students who want broad knowledge."},
-  {keywords:["features","hub features"], answer:"The hub features collaborative projects, strand-based organization, resource sharing, multilingual support, dark mode, and adjustable font size."},
-  {keywords:["languages","language support"], answer:"The hub supports multiple languages including English, Tagalog, and Bisaya."},
-  {keywords:["dark mode"], answer:"The hub has dark mode functionality for comfortable viewing in low-light environments."},
-  {keywords:["font size","adjust font"], answer:"You can adjust the font size up to a maximum of 20px for better readability."},
-  {keywords:["how to get started","getting started","start"], answer:"To get started, explore the available projects or log in to join the hub and create your own research initiatives."},
-  {keywords:["join project","how to join"], answer:"To join a project, log in, navigate to the project page, and click 'Join'. Contact the project leader if guidance is needed."},
-  {keywords:["2019","2020","2021","2022","2023","2024"], answer:"Recent research projects: 2019 STEM Robotics, 2020 HUMSS Social Study, 2021 ABM Marketing Plan, 2022 STEM AI Project, 2023 HUMSS Cultural Study, 2024 AFA Fishery Innovation."},
-  {keywords:["research methods"], answer:"Common research methods include surveys, experiments, observations, interviews, and case studies."},
-  {keywords:["tools","research tools"], answer:"Research tools can include computers, statistical software, laboratory equipment, and online collaboration platforms."},
-  {keywords:["collaboration","teamwork"], answer:"Collaboration involves working with peers, mentors, or professionals to share ideas, resources, and improve research quality."},
-  {keywords:["example project","research example"], answer:"Examples: STEM AI Project (2022), HUMSS Cultural Study (2023), AFA Fishery Innovation (2024), TVL Robotics Challenge (2023), ABM Marketing Research (2021)."},
-  {keywords:["tips","research tips"], answer:"Tips: Plan your research, choose the right method, document your process, and collaborate with team members for better results."}
+/* ✅ Questions and Answers */
+const qaData = [
+  { q: "What is NNCHS Research Hub?", a: "It’s a collaborative platform for students and teachers to develop, share, and publish research projects." },
+  { q: "What strands are supported?", a: "The hub supports all strands — STEM, HUMSS, ABM, ICT, TVL, AFA, and GAS — each with unique research focuses." },
+  { q: "How can I join a project?", a: "Log in to your account, go to the projects page, and click 'Join Project'. You can collaborate with your chosen strand group." },
+  { q: "What are the yearly projects?", a: "Each year, the hub highlights strand-specific projects like STEM Robotics, HUMSS Social Studies, and AFA Fishery Innovations." },
+  { q: "Does it support multiple languages?", a: "Yes! The hub supports English, Tagalog, and Bisaya for accessibility." },
+  { q: "What is the purpose of the hub?", a: "To promote innovation, collaboration, and critical thinking through research across all strands." },
 ];
 
-const askBtn = document.getElementById("askBtn");
-const aiInput = document.getElementById("aiInput");
-const aiResponse = document.getElementById("aiResponse");
+/* ✅ Generate Question Buttons */
+const questionList = document.getElementById("questionList");
+const answerDisplay = document.getElementById("answerDisplay");
 
-function getAnswer(question){
-  question = question.toLowerCase();
-  for(let entry of knowledgeBase){
-    for(let keyword of entry.keywords){
-      if(question.includes(keyword)){
-        return entry.answer;
-      }
-    }
+qaData.forEach(item => {
+  const qBtn = document.createElement("div");
+  qBtn.classList.add("question");
+  qBtn.textContent = item.q;
+  qBtn.onclick = () => showAnswer(item.a);
+  questionList.appendChild(qBtn);
+});
+
+function showAnswer(answerText) {
+  answerDisplay.innerHTML = `<div class='answer fade-in'>${answerText}</div>`;
+  const answerBox = answerDisplay.querySelector(".answer");
+  answerBox.style.display = "block";
+}
+
+/* ✅ Sync Dark Mode with index.html */
+window.addEventListener("load", () => {
+  const darkModeEnabled = localStorage.getItem("darkMode") === "true";
+  if (!darkModeEnabled) {
+    document.body.classList.add("light-mode");
   }
-  return "I'm sorry, I don't have an exact answer for that. Try one of the suggested questions!";
-}
-
-function displayResponse(text){
-  aiResponse.textContent = "";
-  let i=0;
-  const interval = setInterval(()=>{
-    aiResponse.textContent += text.charAt(i);
-    i++;
-    if(i>=text.length) clearInterval(interval);
-  },25);
-}
-
-function askQuestion(){
-  const question = aiInput.value.trim();
-  if(!question){ aiResponse.textContent="Please type a question!"; return; }
-  aiResponse.textContent = "AI is typing...";
-  setTimeout(()=>{
-    const answer = getAnswer(question);
-    displayResponse(answer);
-  },500);
-  aiInput.value = "";
-}
-
-function askPreset(question){
-  aiInput.value = question;
-  askQuestion();
-}
-
-askBtn.addEventListener("click", askQuestion);
-aiInput.addEventListener("keypress", e => { if(e.key === "Enter") askQuestion(); });
-</script>
-
-<script>
-  // Dark mode persistence
-  window.addEventListener("load", ()=>{
-    const darkModeSaved = localStorage.getItem("darkMode") === "true";
-    document.body.classList.toggle("dark-mode", darkModeSaved);
-    const darkModeToggle = document.getElementById("darkModeToggle");
-    if(darkModeToggle) darkModeToggle.checked = darkModeSaved;
-  });
+});
 </script>
 
 </body>

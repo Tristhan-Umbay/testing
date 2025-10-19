@@ -12,6 +12,8 @@
   --secondary: 280 80% 60%;
   --background: 0 0% 100%;
   --foreground: 222 47% 11%;
+  --background-dark: 222 10% 10%;
+  --foreground-dark: 210 20% 95%;
   --border: 214 32% 91%;
   --muted-foreground: 215 16% 47%;
   --font-size: 16px;
@@ -26,6 +28,7 @@ body {
   overflow-x:hidden;
   font-size:calc(var(--font-size) * var(--scale));
   transition: font-size 0.2s ease, background 0.3s, color 0.3s;
+  position: relative;
 }
 
 /* Navbar */
@@ -39,11 +42,11 @@ header {
 }
 .container { max-width:1280px; margin:0 auto; padding:0 1rem; }
 .header-content { display:flex; align-items:center; justify-content:space-between; height:4.5rem; position:relative; }
-.logo { font-size:calc(1.6rem * var(--scale)); font-weight:700; background:linear-gradient(90deg,hsl(var(--primary)),hsl(var(--secondary))); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; letter-spacing:1px; }
+.logo { font-size:calc(1.6rem * var(--scale)); font-weight:700; background:linear-gradient(90deg,hsl(var(--primary)),hsl(var(--secondary))); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-decoration:none; letter-spacing:1px; opacity:0; animation:fadeIn 1s forwards; animation-delay:0.2s; }
 
 /* Desktop nav */
 nav { display:flex; align-items:center; gap:1rem; }
-nav a, nav select, nav button.nav-btn { font-weight:500; font-size:calc(1rem*var(--scale)); text-decoration:none; transition:all 0.3s ease; }
+nav a, nav select, nav button.nav-btn { font-weight:500; font-size:calc(1rem*var(--scale)); text-decoration:none; transition:all 0.3s ease; opacity:0; animation:fadeIn 1s forwards; }
 nav a { color:rgba(255,255,255,0.92); position:relative; }
 nav a:hover { color:#fff; text-shadow:0 0 8px hsl(var(--primary)/0.8); }
 nav a::after { content:""; position:absolute; left:0; bottom:-5px; width:0%; height:2px; background:linear-gradient(90deg,hsl(var(--primary)),hsl(var(--secondary))); transition:width 0.3s ease; border-radius:5px; }
@@ -71,21 +74,23 @@ nav a:hover::after { width:100%; }
 }
 
 /* Hamburger Menu */
-#hamburgerBtn { display:none; background:transparent; font-size:1.8rem; color:white; border:none; cursor:pointer; }
+#hamburgerBtn { display:none; background:transparent; font-size:1.8rem; color:white; border:none; cursor:pointer; opacity:0; animation:fadeIn 1s forwards; animation-delay:0.5s; }
 .mobile-menu {
   display:none; flex-direction:column; position:absolute; top:4.5rem; right:1rem;
   background: rgba(20,20,20,0.9); backdrop-filter:blur(12px); padding:1rem; border-radius:10px; gap:0.8rem; z-index:1000;
   opacity:0; transition:opacity 0.4s ease;
 }
 .mobile-menu.show { opacity:1; }
+.mobile-menu a { transition:all 0.3s ease; }
+.mobile-menu a:hover { color:hsl(var(--secondary)); transform:translateX(5px); text-shadow:0 0 6px hsl(var(--primary)/0.8);}
 .menu-divider { height:1px; background: rgba(255,255,255,0.3); margin:0.5rem 0; }
-.mobile-menu a, .mobile-menu button, .mobile-menu select { width:100%; }
+.mobile-menu button, .mobile-menu select { width:100%; }
 
 /* Hero Section */
 .hero { position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; color:white; text-align:center; }
 .hero-bg { position:absolute; inset:0; background:url('1.jpg') center/cover no-repeat; filter:brightness(0.55); animation:bgPulse 10s infinite alternate ease-in-out; }
-@keyframes bgPulse { from {transform:scale(1); filter:brightness(0.55);} to {transform:scale(1.05); filter:brightness(0.7);} }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(135deg,hsl(var(--primary)/0.6),hsl(var(--secondary)/0.5)); }
+
 .hero-content { position:relative; z-index:10; text-align:center; padding:5rem 1rem; opacity:0; transform:translateY(30px); animation:fadeSlideUp 1.5s ease-out forwards; }
 @keyframes fadeSlideUp { from {opacity:0; transform:translateY(40px);} to {opacity:1; transform:translateY(0);} }
 .hero h1 { font-size:clamp(2.5rem,8vw,4.5rem); font-weight:700; margin-bottom:1.5rem; animation:glowText 3s infinite alternate ease-in-out; }
@@ -121,6 +126,19 @@ input:checked + .slider:before { transform:translateX(26px); }
 
 /* Mobile responsiveness */
 @media(max-width:768px){ nav{display:none;} #hamburgerBtn{display:block;} }
+
+/* Fade-in keyframe */
+@keyframes fadeIn { from {opacity:0; transform:translateY(-10px);} to {opacity:1; transform:translateY(0);} }
+
+/* Dark Mode */
+body.dark-mode { background:hsl(var(--background-dark)); color:hsl(var(--foreground-dark)); }
+body.dark-mode nav a, body.dark-mode .logo { color:hsl(var(--foreground-dark)); }
+body.dark-mode .hero-overlay { background:linear-gradient(135deg,hsl(var(--primary)/0.4),hsl(var(--secondary)/0.3)); }
+
+/* Particles */
+#particles { position:absolute; inset:0; z-index:5; pointer-events:none; }
+.particle { position:absolute; width:4px; height:4px; background:white; border-radius:50%; opacity:0.7; animation:particleMove linear infinite; }
+@keyframes particleMove { 0% { transform:translateY(0px);} 100% { transform:translateY(-1000px);} }
 </style>
 </head>
 <body>
@@ -132,6 +150,10 @@ input:checked + .slider:before { transform:translateX(26px); }
     <button id="hamburgerBtn">☰</button>
     <nav>
       <a href="#home" class="no-translate">Home</a>
+      <a href="#project" data-lang="project">Project</a>
+      <a href="#strand" data-lang="strand">Strand</a>
+      <a href="#about" data-lang="about">About</a>
+      <a href="#favorite" data-lang="favorite">My Favorite</a>
       <select class="lang-select" id="langSelect">
         <option value="en">English</option>
         <option value="tl">Tagalog</option>
@@ -142,6 +164,10 @@ input:checked + .slider:before { transform:translateX(26px); }
     </nav>
     <div id="mobileMenu" class="mobile-menu">
       <a href="#home" class="no-translate">Home</a>
+      <a href="#project" data-lang="project">Project</a>
+      <a href="#strand" data-lang="strand">Strand</a>
+      <a href="#about" data-lang="about">About</a>
+      <a href="#favorite" data-lang="favorite">My Favorite</a>
       <div class="menu-divider"></div>
       <label for="langSelectMobile" style="color:white;">Language:</label>
       <select class="lang-select" id="langSelectMobile">
@@ -159,6 +185,7 @@ input:checked + .slider:before { transform:translateX(26px); }
 <section class="hero" id="home">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
+  <div id="particles"></div>
   <div class="hero-content">
     <h1>NNCHS Research Hub</h1>
     <p data-lang="heroDesc">A collaborative space where researchers, students, and professionals unite to conduct, share, and apply groundbreaking research.</p>
@@ -173,7 +200,7 @@ input:checked + .slider:before { transform:translateX(26px); }
 <div class="settings-panel" id="settingsPanel">
   <div class="setting-item">
     <label>Font Size</label>
-    <input type="range" min="12" max="24" value="16" id="fontSizeRange">
+    <input type="range" min="12" max="20" value="16" id="fontSizeRange">
   </div>
   <div class="setting-item">
     <label>Dark Mode</label>
@@ -197,7 +224,6 @@ const translations = {
   tl:{login:"Mag-login",heroDesc:"Isang lugar kung saan nagsasama ang mga mananaliksik, estudyante, at propesyonal upang magbahagi at lumikha ng makabagong pananaliksik.",getStarted:"Magsimula",learnMore:"Alamin Pa",footerText:"© 2025 NNCHS Research Hub. Pinapaunlad ang kaalaman sa pamamagitan ng pagtutulungan."},
   ceb:{login:"Sulod",heroDesc:"Usa ka lugar diin ang mga mananaliksik, estudyante, ug propesyonal naghiusa aron magpaambit ug maghimo og mga bag-ong tukion.",getStarted:"Sugdi",learnMore:"Dugangi Pagkat-on",footerText:"© 2025 NNCHS Research Hub. Nagpalambo sa kahibalo pinaagi sa panaghiusa."}
 };
-
 function applyLanguage(lang, container=document){
   container.querySelectorAll("[data-lang]").forEach(el=>{
     const key=el.getAttribute("data-lang");
@@ -225,15 +251,8 @@ const settingsPanel=document.getElementById("settingsPanel");
 const openSettings=document.getElementById("openSettings");
 const openSettingsMobile=document.getElementById("openSettingsMobile");
 const closeSettings=document.getElementById("closeSettings");
-
-function openSettingsPanel(){
-  settingsPanel.classList.add("show");
-  mobileMenu.classList.remove("show");
-  mobileMenu.style.display="none";
-}
-function closeSettingsPanel(){
-  settingsPanel.classList.remove("show");
-}
+function openSettingsPanel(){ settingsPanel.classList.add("show"); mobileMenu.classList.remove("show"); mobileMenu.style.display="none"; }
+function closeSettingsPanel(){ settingsPanel.classList.remove("show"); }
 openSettings.addEventListener("click", openSettingsPanel);
 openSettingsMobile.addEventListener("click", openSettingsPanel);
 closeSettings.addEventListener("click", closeSettingsPanel);
@@ -250,6 +269,19 @@ const darkModeToggle=document.getElementById("darkModeToggle");
 darkModeToggle.addEventListener("change", e=>{
   document.body.classList.toggle("dark-mode", e.target.checked);
 });
+
+// Particles
+const particleContainer=document.getElementById("particles");
+for(let i=0;i<50;i++){
+  const p=document.createElement("div");
+  p.classList.add("particle");
+  p.style.left=Math.random()*100+"%";
+  p.style.top=Math.random()*100+"%";
+  p.style.width=p.style.height= Math.random()*3+2+"px";
+  p.style.animationDuration= (5+Math.random()*10)+"s";
+  p.style.opacity=Math.random()*0.6+0.3;
+  particleContainer.appendChild(p);
+}
 </script>
 </body>
 </html>

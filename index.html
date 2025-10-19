@@ -51,7 +51,6 @@
       z-index: 100;
       background: rgba(20, 20, 20, 0.35);
       backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       transition: all 0.3s ease;
     }
@@ -281,7 +280,7 @@
       margin: 0 auto;
     }
 
-    /* Smaller Footer */
+    /* Footer */
     footer {
       text-align: center;
       padding: calc(0.5rem * var(--scale)) 1rem;
@@ -409,6 +408,63 @@
 
     body.dark-mode footer {
       color: hsl(0, 0%, 80%);
+    }
+
+    /* 🔹 MOBILE RESPONSIVENESS */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        height: auto;
+        padding: 0.5rem 1rem;
+      }
+      nav {
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        width: 100%;
+      }
+      nav a, .nav-btn, .lang-select {
+        font-size: calc(0.9rem * var(--scale));
+      }
+      .hero-content {
+        padding: calc(3rem * var(--scale)) 1rem;
+      }
+      .hero h1 {
+        font-size: calc(clamp(2rem, 10vw, 3rem) * var(--scale));
+      }
+      .hero p {
+        font-size: calc(clamp(1rem, 4vw, 1.3rem) * var(--scale));
+      }
+      .hero-buttons {
+        flex-direction: column;
+        gap: calc(0.8rem * var(--scale));
+      }
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+      section {
+        padding: calc(3rem * var(--scale)) 1rem;
+      }
+      .section-header h2 {
+        font-size: calc(clamp(1.8rem, 6vw, 2.5rem) * var(--scale));
+      }
+      .section-header p {
+        font-size: calc(1rem * var(--scale));
+        max-width: 100%;
+      }
+      footer {
+        font-size: calc(0.85rem * var(--scale));
+        padding: calc(1rem * var(--scale)) 1rem;
+      }
+    }
+
+    /* Hide particles on very small screens */
+    @media (max-width: 480px) {
+      .particle {
+        display: none;
+      }
     }
   </style>
 </head>

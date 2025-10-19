@@ -416,8 +416,8 @@ body.dark-mode .hero p { color:white; }
     <h1 class="no-translate">NNCHS Research Hub</h1>
     <p data-lang="heroDesc">A collaborative space where researchers, students, and professionals unite to conduct, share, and apply groundbreaking research.</p>
     <div class="hero-buttons">
-      <button class="btn btn-hero" data-lang="getStarted">Get Started</button>
-      <button class="btn btn-outline" data-lang="learnMore">Learn More</button>
+      <a href=""><button class="btn btn-hero" data-lang="getStarted">Get Started</button></a>
+      <a href="learn-more.html"><button class="btn btn-outline" data-lang="learnMore">Learn More</button></a>
     </div>
   </div>
 </section>
@@ -490,9 +490,22 @@ fontSizeRange.addEventListener("input", e=>{
   document.documentElement.style.setProperty('--scale', scale);
 });
 
+// --------------------
+// Dark Mode with Persistence
+// --------------------
 darkModeToggle.addEventListener("change", e=>{
-  document.body.classList.toggle("dark-mode", e.target.checked);
+  const isDark = e.target.checked;
+  document.body.classList.toggle("dark-mode", isDark);
+  localStorage.setItem("darkMode", isDark); // save preference
+});
+
+// Apply saved dark mode on page load
+window.addEventListener("load", ()=>{
+  const darkModeSaved = localStorage.getItem("darkMode") === "true";
+  document.body.classList.toggle("dark-mode", darkModeSaved);
+  darkModeToggle.checked = darkModeSaved;
 });
 </script>
+
 </body>
 </html>

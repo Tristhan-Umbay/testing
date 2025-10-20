@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | NNCHS Research Hub</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins", sans-serif; }
+body {
+  background: linear-gradient(135deg, hsl(220,90%,15%), hsl(220,80%,20%), hsl(230,70%,25%));
+  color: #f4f6fa;
+  overflow-x:hidden;
+}
+
+/* Fade-in Animation */
+@keyframes fadeInUp { from {opacity:0; transform:translateY(50px);} to {opacity:1; transform:translateY(0);} }
+.fade-container { opacity:0; transform:translateY(50px); }
+.fade-container.visible { animation:fadeInUp 1s forwards; }
+
+/* Back Button */
+.back-btn {
+  position:fixed; top:20px; left:30px;
+  background: linear-gradient(90deg, hsl(220,90%,56%), hsl(280,80%,60%));
+  border:none; color:white; padding:10px 20px; border-radius:25px; font-size:16px; font-weight:600;
+  cursor:pointer; transition: all 0.3s ease; box-shadow:0 4px 12px rgba(0,0,0,0.4); z-index:10;
+}
+.back-btn:hover { transform:scale(1.05); box-shadow:0 6px 20px rgba(0,0,0,0.5); }
+
+section {
+  min-height:100vh; display:flex; justify-content:center; align-items:center; padding:80px 10%; text-align:center;
+}
+
+.container-bg {
+  background: rgba(0,0,0,0.35); backdrop-filter: blur(8px); border-radius:20px; padding:60px 40px;
+  max-width:800px; width:100%; display:flex; flex-direction:column; align-items:center;
+}
+
+.container-bg img { margin-bottom:30px; width:150px; height:auto; border-radius:10px; }
+.container-bg h1 {
+  font-size:2.5rem; margin-bottom:25px;
+  background: linear-gradient(90deg, hsl(220,90%,65%), hsl(280,80%,70%));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.container-bg p { font-size:1.15rem; line-height:1.8; color:hsl(220,20%,85%); }
+
+.map-container {
+  width:100%; height:400px; margin-top:30px; border-radius:15px; overflow:hidden; position:relative;
+  transform: scale(0.95);
+  transition: transform 1s ease-out;
+}
+
+/* Zoom-in when visible */
+.fade-container.visible .map-container {
+  transform: scale(1);
+}
+
+/* Bouncing NNCHS logo pin */
+.pin {
+  position:absolute;
+  top:48%;
+  left:52%;
+  width:50px;
+  height:50px;
+  background:url('path-to-your-logo.png') no-repeat center center;
+  background-size:contain;
+  transform:translate(-50%, -100%);
+  animation:bounce 1s infinite alternate;
+  z-index:5;
+}
+
+@keyframes bounce {
+  0% { transform: translate(-50%, -100%) translateY(0); }
+  50% { transform: translate(-50%, -100%) translateY(-20px); }
+  100% { transform: translate(-50%, -100%) translateY(0); }
+}
+
+/* Label for the school on map */
+.map-label {
+  position:absolute;
+  top:10px; 
+  left:50%; 
+  transform:translateX(-50%);
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding:5px 12px;
+  border-radius:10px;
+  font-weight:600;
+  font-size:0.95rem;
+  text-align:center;
+  pointer-events:none;
+}
+
+footer {
+  text-align:center; padding:25px; font-size:0.9rem; color:hsl(220,10%,75%);
+  background: rgba(0,0,0,0.2); backdrop-filter: blur(6px); margin-top:40px;
+}
+
+html { scroll-behavior:smooth; }
+
+@media screen and (max-width:600px) {
+  .container-bg { padding:40px 20px; }
+  .container-bg h1 { font-size:2rem; }
+  .container-bg p { font-size:1rem; }
+  .container-bg img { width:120px; }
+  .map-container { height:300px; }
+}
+</style>
+</head>
+<body>
+
+<button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
+
+<!-- About School -->
+<section id="school">
+  <div class="container-bg fade-container" data-delay="0">
+    <img src="logo.png" alt="NNCHS Logo">
+    <h1>About Nabunturan National Comprehensive High School</h1>
+    <p>
+      Nabunturan National Comprehensive High School (NNCHS) is one of the leading secondary schools in Davao de Oro, 
+      dedicated to providing quality education and holistic development to students. 
+      The school promotes academic excellence, creativity, and innovation through various programs, 
+      including Science, Technology, Engineering, and Mathematics (STEM), as well as Humanities and Social Sciences (HUMSS).
+    </p>
+    <p>
+      NNCHS is strategically located along the National Highway in Nabunturan, the capital municipality of Davao de Oro. 
+      The school is easily accessible via public transportation, making it convenient for students from surrounding barangays.
+      The campus features modern classrooms, science laboratories, a well-stocked library, a computer lab, and extensive sports facilities 
+      including a covered court and a football field. The school environment promotes both academic learning and extracurricular activities, 
+      encouraging students to develop leadership, teamwork, and social responsibility.
+    </p>
+    <p>
+      The surrounding area of NNCHS is known for its vibrant community, local businesses, and scenic landscapes. 
+      Nabunturan itself is a hub for cultural and economic activities in Davao de Oro, providing students opportunities 
+      to engage in community outreach programs and experiential learning outside the classroom.
+    </p>
+  </div>
+</section>
+
+<!-- Map Section (Separate Container) -->
+<section id="map">
+  <div class="container-bg fade-container" data-delay="100">
+    <h1>School Location</h1>
+    <p>
+      Nabunturan National Comprehensive High School (NNCHS) is located along the National Highway in the heart of Nabunturan, 
+      Davao de Oro. This prime location provides easy access for students coming from nearby barangays and makes the school 
+      well-connected to the town’s commercial areas, community centers, and public transportation routes.
+    </p>
+    <p>
+      The school is surrounded by scenic landscapes and a vibrant community, making it an ideal environment for learning and growth. 
+      Visitors can easily explore the campus and its facilities, while students benefit from nearby amenities, including libraries, 
+      sports complexes, and cultural hubs.
+    </p>
+    <p>
+      Use the interactive map below to locate NNCHS, view the surrounding area, and plan your visit. 
+      The map provides a real-time satellite view, helping students, parents, and guests navigate efficiently.
+    </p>
+
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!4v1760928881995!6m8!1m7!1sF80iyOSFEhzJBEnfYY-vVw!2m2!1d7.604980751387373!2d125.9642708468355!3f312.67406538869204!4f2.6867662187996757!5f0.7820865974627469" 
+        width="100%" 
+        height="100%" 
+        style="border:0; border-radius:15px;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+
+      <!-- Label at the top -->
+      <div class="map-label">Nabunturan National Comprehensive High School</div>
+
+      <!-- Bouncing NNCHS logo pin -->
+      <div class="pin"></div>
+    </div>
+  </div>
+</section>
+
+<!-- About Research Hub -->
+<section id="hub">
+  <div class="container-bg fade-container" data-delay="200">
+    <h1>A NNCHS Research Hub</h1>
+    <p>
+      The NNCHS Research Hub is a digital platform designed to help students explore, create, and share their research projects. 
+      It serves as a collaborative space for learning, guidance, and inspiration. 
+      With resources, examples, and AI-powered support, the Research Hub encourages students to enhance their analytical and 
+      critical thinking skills while promoting a culture of inquiry and discovery.
+    </p>
+  </div>
+</section>
+
+<!-- About Creator -->
+<section id="creator">
+  <div class="container-bg fade-container" data-delay="400">
+    <h1>About the Creator</h1>
+    <p>
+      This website was created by <strong>Thristan Jhid Umbay</strong>, a passionate student developer 
+      who aims to empower learners through modern and interactive web experiences. 
+      His goal is to combine technology and education to make research and learning more engaging, 
+      accessible, and innovative for everyone.
+    </p>
+  </div>
+</section>
+
+<footer>
+  © 2025 NNCHS Research Hub | Created by Thristan Jhid Umbay
+</footer>
+
+<script>
+// Fade-in Animation
+const containers = document.querySelectorAll('.fade-container');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const delay = entry.target.getAttribute('data-delay') || 0;
+      entry.target.style.animationDelay = delay + "ms";
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+},{ threshold:0.2 });
+containers.forEach(container => observer.observe(container));
+</script>
+
+</body>
+</html>

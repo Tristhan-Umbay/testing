@@ -129,6 +129,7 @@
       text-align: center;
       transition: background 0.5s, box-shadow 0.5s;
       max-width: 1000px;
+      width: 100%;
     }
 
     body.light-mode .container-bg {
@@ -201,6 +202,13 @@
       background: rgba(255, 255, 255, 0.5);
       color: #333;
     }
+
+    /* ✅ Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 0.95rem; }
+      .container-bg { padding: 50px 30px; }
+    }
   </style>
 </head>
 <body>
@@ -214,7 +222,7 @@
       <h1>About Nabunturan National Comprehensive High School</h1>
       <div class="tagline">🏫 Home of the Achievers 🏅</div>
       <p>
-        <a href="https://www.facebook.com/share/1Gpvw27EMq/" style="color: white;">Nabunturan National Comprehensive High School (NNCHS)</a> is a premier educational institution in Davao de Oro, proudly recognized as the <strong>Home of the Achievers</strong>. 
+        Nabunturan National Comprehensive High School (NNCHS) is a premier educational institution in Davao de Oro, proudly recognized as the <strong>Home of the Achievers</strong>. 
         The school is committed to providing quality education and holistic development, shaping students to excel academically, socially, and personally.
       </p>
       <p>
@@ -286,7 +294,7 @@
   </footer>
 
   <script>
-    // Scroll fade-in animation
+    /* ✅ Fade-in animation */
     const fadeEls = document.querySelectorAll(".fade-in");
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -295,10 +303,17 @@
     }, { threshold: 0.15 });
     fadeEls.forEach(el => observer.observe(el));
 
-    // Apply theme from localStorage
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light-mode");
+    /* ✅ Apply initial dark mode */
+    function applyDarkMode() {
+      const darkModeEnabled = localStorage.getItem("darkMode") === "true";
+      document.body.classList.toggle("light-mode", !darkModeEnabled);
     }
+    applyDarkMode();
+
+    /* ✅ Listen for dark mode changes in real time */
+    window.addEventListener("storage", (event) => {
+      if (event.key === "darkMode") applyDarkMode();
+    });
   </script>
 </body>
 </html>

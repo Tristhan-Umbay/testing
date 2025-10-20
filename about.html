@@ -25,14 +25,53 @@
       color: #222;
     }
 
+    /* ✨ Fade & Slide Animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     .fade-in {
       opacity: 0;
-      animation: fadeIn 1s ease forwards;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-in {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 1s ease;
+    }
+
+    .slide-in.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .zoom-in {
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.9s ease;
+    }
+
+    .zoom-in.visible {
+      opacity: 1;
+      transform: scale(1);
     }
 
     /* Back Button */
@@ -51,6 +90,7 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       z-index: 10;
+      animation: slideIn 1s ease forwards;
     }
 
     .back-btn:hover {
@@ -76,6 +116,7 @@
       font-weight: 700;
       margin-bottom: 25px;
       letter-spacing: 0.5px;
+      animation: fadeIn 1s ease forwards;
     }
 
     h1 {
@@ -112,7 +153,7 @@
       background: linear-gradient(90deg, hsl(220, 90%, 60%), hsl(280, 80%, 65%));
       color: white;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-      animation: fadeIn 1.2s ease forwards;
+      animation: zoomIn 1.2s ease forwards;
     }
 
     body.light-mode .tagline {
@@ -130,6 +171,14 @@
       transition: background 0.5s, box-shadow 0.5s;
       max-width: 1000px;
       width: 100%;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    .container-bg.visible {
+      transform: translateY(0);
+      opacity: 1;
+      transition: all 1s ease;
     }
 
     body.light-mode .container-bg {
@@ -145,6 +194,7 @@
       border-radius: 15px;
       overflow: hidden;
       position: relative;
+      animation: fadeIn 1.5s ease forwards;
     }
 
     .map-label {
@@ -168,6 +218,7 @@
       border-radius: 15px;
       margin-bottom: 25px;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      animation: zoomIn 1.2s ease forwards;
     }
 
     ul {
@@ -181,6 +232,7 @@
       font-size: 1rem;
       line-height: 1.8;
       color: hsl(220, 20%, 88%);
+      animation: fadeIn 1.2s ease forwards;
     }
 
     body.light-mode ul {
@@ -196,6 +248,7 @@
       backdrop-filter: blur(6px);
       margin-top: 40px;
       transition: background 0.5s, color 0.5s;
+      animation: fadeIn 1.5s ease forwards;
     }
 
     body.light-mode footer {
@@ -294,14 +347,14 @@
   </footer>
 
   <script>
-    /* ✅ Fade-in animation */
-    const fadeEls = document.querySelectorAll(".fade-in");
+    /* ✅ Fade-in & Scroll Animations */
+    const elements = document.querySelectorAll('.fade-in, .slide-in, .zoom-in, .container-bg');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.style.opacity = 1;
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.15 });
-    fadeEls.forEach(el => observer.observe(el));
+    elements.forEach(el => observer.observe(el));
 
     /* ✅ Apply initial dark mode */
     function applyDarkMode() {
@@ -310,7 +363,7 @@
     }
     applyDarkMode();
 
-    /* ✅ Listen for dark mode changes in real time */
+    /* ✅ Listen for dark mode changes */
     window.addEventListener("storage", (event) => {
       if (event.key === "darkMode") applyDarkMode();
     });

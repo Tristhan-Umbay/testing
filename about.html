@@ -1,195 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About | NNCHS Research Hub</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | NNCHS Research Hub</title>
 
-<style>
-* {
-  margin:0; padding:0; box-sizing:border-box; font-family:"Poppins", sans-serif;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
-body {
-  background: linear-gradient(135deg, hsl(220,90%,15%), hsl(220,80%,20%), hsl(230,70%,25%));
-  color: #f4f6fa;
-  overflow-x:hidden;
-  transition: background 0.5s, color 0.5s;
-}
+    body {
+      background: linear-gradient(135deg, hsl(220, 90%, 15%), hsl(220, 80%, 20%), hsl(230, 70%, 25%));
+      color: #f4f6fa;
+      overflow-x: hidden;
+      transition: background 0.6s ease, color 0.6s ease;
+    }
 
-/* Light mode */
-body.light-mode {
-  background: linear-gradient(135deg, hsl(220,20%,95%), hsl(220,15%,90%), hsl(230,10%,85%));
-  color: #1a1a1a;
-}
+    body.light-mode {
+      background: linear-gradient(135deg, hsl(220, 20%, 95%), hsl(220, 15%, 92%), hsl(230, 10%, 88%));
+      color: #222;
+    }
 
-/* Fade-in Animation */
-@keyframes fadeIn { from {opacity:0; transform:translateY(30px);} to {opacity:1; transform:translateY(0);} }
-.fade-in { opacity:0; animation: fadeIn 1s ease-out forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* Back Button */
-.back-btn {
-  position: fixed; top:20px; left:30px;
-  background: linear-gradient(90deg, hsl(220,90%,56%), hsl(280,80%,60%));
-  border:none; color:white; padding:10px 20px;
-  border-radius:25px; font-size:16px; font-weight:600;
-  cursor:pointer; transition: all 0.3s ease;
-  box-shadow:0 4px 12px rgba(0,0,0,0.4); z-index:10;
-}
-.back-btn:hover { transform:scale(1.05); box-shadow:0 6px 20px rgba(0,0,0,0.5); }
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
 
-/* Sections */
-section {
-  min-height:100vh; display:flex; flex-direction:column;
-  justify-content:center; align-items:center; padding:100px 5%;
-  text-align:center;
-}
-.container-bg {
-  background: rgba(0,0,0,0.35); backdrop-filter:blur(8px); border-radius:20px;
-  padding:60px 40px; max-width:900px; width:100%;
-  display:flex; flex-direction:column; align-items:center;
-}
-.container-bg img { margin-bottom:30px; width:150px; height:auto; border-radius:10px; }
-.container-bg h1,h2 { font-size:2.5rem; margin-bottom:25px;
-  background: linear-gradient(90deg, hsl(220,90%,65%), hsl(280,80%,70%));
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-}
-.container-bg p { font-size:1.15rem; line-height:1.8; color:hsl(220,20%,85%); }
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 25px;
+      background: linear-gradient(90deg, hsl(220, 90%, 56%), hsl(280, 80%, 65%));
+      border: none;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 25px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      z-index: 10;
+    }
 
-/* Map Section */
-.map-container {
-  width:100%; height:400px; margin:30px 0; border-radius:15px; overflow:hidden; position:relative;
-}
-.map-container img { width:100%; height:100%; object-fit:cover; border-radius:15px; }
-.map-label {
-  position:absolute; top:10px; left:50%; transform:translateX(-50%);
-  background: rgba(0,0,0,0.6); color:#fff; padding:5px 12px;
-  border-radius:10px; font-weight:600; font-size:0.95rem;
-}
+    .back-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
 
-/* Creator Team Image */
-.team-image { width:300px; max-width:80%; border-radius:15px; object-fit:cover; margin:25px 0; box-shadow:0 4px 15px rgba(0,0,0,0.3); }
+    /* Sections */
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 100px 7%;
+      text-align: center;
+    }
 
-/* Footer */
-footer {
-  text-align:center; padding:25px; font-size:0.9rem; color:hsl(220,10%,75%);
-  background: rgba(0,0,0,0.2); backdrop-filter: blur(6px); margin-top:40px;
-  transition: background 0.5s, color 0.5s;
-}
-body.light-mode footer { background: rgba(255,255,255,0.4); color:#333; }
+    h1, h2 {
+      background: linear-gradient(90deg, hsl(220, 90%, 65%), hsl(280, 80%, 70%));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      margin-bottom: 25px;
+      letter-spacing: 0.5px;
+    }
 
-@media screen and (max-width:600px){
-  .container-bg{padding:40px 20px;}
-  .container-bg h1,h2{font-size:2rem;}
-  .container-bg img{width:120px;}
-  .map-container{height:300px;}
-}
-</style>
+    h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+    }
+
+    p {
+      max-width: 900px;
+      margin: 0 auto 25px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: hsl(220, 20%, 88%);
+      text-align: justify;
+    }
+
+    body.light-mode p {
+      color: #333;
+    }
+
+    /* Centered Tagline */
+    .tagline {
+      display: inline-block;
+      font-size: 1.4rem;
+      font-weight: 600;
+      text-align: center;
+      margin: 0 auto 25px;
+      padding: 8px 20px;
+      border-radius: 20px;
+      background: linear-gradient(90deg, hsl(220, 90%, 60%), hsl(280, 80%, 65%));
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    body.light-mode .tagline {
+      background: linear-gradient(90deg, hsl(220, 50%, 50%), hsl(280, 60%, 55%));
+      color: #fff;
+    }
+
+    .container-bg {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 70px 60px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      transition: background 0.5s, box-shadow 0.5s;
+      max-width: 1000px;
+    }
+
+    body.light-mode .container-bg {
+      background: rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Map */
+    .map-container {
+      width: 100%;
+      height: 400px;
+      margin: 35px 0;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .map-label {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      pointer-events: none;
+    }
+
+    /* Creator Image */
+    .creator-img {
+      width: 200px;
+      height: auto;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    ul {
+      list-style: none;
+      margin: 0 auto;
+      max-width: 500px;
+      text-align: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px 0;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: hsl(220, 20%, 88%);
+    }
+
+    body.light-mode ul {
+      color: #222;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      font-size: 0.9rem;
+      color: hsl(220, 10%, 75%);
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(6px);
+      margin-top: 40px;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.light-mode footer {
+      background: rgba(255, 255, 255, 0.5);
+      color: #333;
+    }
+  </style>
 </head>
 <body>
 
-<button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
+  <button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
 
-<!-- About School -->
-<section id="school" class="fade-in">
-  <div class="container-bg">
-    <img src="logo.png" alt="NNCHS Logo">
-    <h1>About Nabunturan National Comprehensive High School</h1>
-    <p>
-      Nabunturan National Comprehensive High School (NNCHS) is a leading secondary school in Davao de Oro, offering quality education and holistic development.
-      The school fosters academic excellence, creativity, and innovation through programs like STEM, HUMSS, and more. Facilities include science labs, a library, sports arenas, and digital classrooms.
-    </p>
-    <p>
-      Founded in the 1990s, NNCHS has consistently ranked among top schools in the region, earning awards for academic performance, research competitions, and community engagement.
-    </p>
-  </div>
-</section>
-
-<!-- Map Section -->
-<section id="location" class="fade-in">
-  <div class="container-bg">
-    <h2>School Location</h2>
-    <div class="map-container">
-      <img src="map.png" alt="NNCHS Satellite View">
-      <div class="map-label">Nabunturan National Comprehensive High School</div>
+  <!-- About the School -->
+  <section id="school" class="fade-in">
+    <div class="container-bg">
+      <img src="logo.png" alt="NNCHS Logo" width="120" style="margin-bottom: 20px;">
+      <h1>About Nabunturan National Comprehensive High School</h1>
+      <div class="tagline">🏫 Home of the Achievers 🏅</div>
+      <p>
+        <a href="https://www.facebook.com/share/1Gpvw27EMq/" style="color: white;">Nabunturan National Comprehensive High School (NNCHS)</a> is a premier educational institution in Davao de Oro, proudly recognized as the <strong>Home of the Achievers</strong>. 
+        The school is committed to providing quality education and holistic development, shaping students to excel academically, socially, and personally.
+      </p>
+      <p>
+        NNCHS offers a wide range of programs including <strong>STEM, HUMSS, TVL, ABM, and GAS</strong>. These strands equip learners with essential knowledge, 
+        practical skills, and leadership values to succeed in higher education and real-world careers. 
+      </p>
+      <p>
+        Guided by its mission to produce competent, disciplined, and value-oriented individuals, NNCHS continues to stand as a beacon of excellence — 
+        nurturing creativity, innovation, and leadership among its students.
+      </p>
     </div>
-    <p>
-      Located in Nabunturan, Davao de Oro, the school is easily accessible via the National Highway and serves students from surrounding municipalities.
-    </p>
-  </div>
-</section>
+  </section>
 
-<!-- Research Hub Section -->
-<section id="hub" class="fade-in">
-  <div class="container-bg">
-    <h2>A NNCHS Research Hub</h2>
-    <p>
-      The NNCHS Research Hub is a digital platform to help students explore, create, and share research projects. It provides guidance, AI-powered support, and collaborative spaces to enhance critical thinking and innovation.
-    </p>
-    <h3>Key Features:</h3>
-    <ul style="text-align:left; margin:20px 0;">
-      <li>Interactive project submission with step-by-step guidance</li>
-      <li>Access to tutorials, examples, and research templates</li>
-      <li>AI-powered assistance for methodology and analysis</li>
-      <li>Progress tracking, quizzes, and real-time feedback</li>
-      <li>Collaborative spaces for student brainstorming</li>
-      <li>Showcase of exemplary student projects and competitions</li>
-    </ul>
-    <h3>Purpose:</h3>
-    <p>
-      To cultivate research, critical thinking, creativity, and innovation among students, preparing them for higher education and professional growth.
-    </p>
-    <h3>Published:</h3>
-    <p>Launched in 2025, the hub provides interactive tools to empower NNCHS students in achieving academic excellence.</p>
-  </div>
-</section>
+  <!-- Map Section -->
+  <section id="location" class="fade-in">
+    <div class="container-bg">
+      <h2>School Location</h2>
+      <div class="map-container">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!4v1760928881995!6m8!1m7!1sF80iyOSFEhzJBEnfYY-vVw!2m2!1d7.604980751387373!2d125.9642708468355!3f312.67406538869204!4f2.6867662187996757!5f0.7820865974627469"
+          width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
+        <div class="map-label">Nabunturan National Comprehensive High School</div>
+      </div>
+      <p>
+        Located along the National Highway in Nabunturan, Davao de Oro, NNCHS serves as a hub for education and innovation. Its campus fosters a vibrant learning environment 
+        where students are guided by dedicated educators and inspired to pursue academic and personal excellence.
+      </p>
+    </div>
+  </section>
 
-<!-- Creator Section -->
-<section id="creator" class="fade-in">
-  <div class="container-bg">
-    <h2>About the Creators</h2>
-    <p>
-      The NNCHS Research Hub was created by a dedicated team of student developers committed to providing an interactive and educational digital platform.
-    </p>
+  <!-- Research Hub -->
+  <section id="hub" class="fade-in">
+    <div class="container-bg">
+      <h1>NNCHS Research Hub</h1>
+      <p>
+        The NNCHS Research Hub is a digital platform designed to help students explore, create, and share their research projects. 
+        It provides a collaborative space for learning, mentorship, and innovation — empowering learners to think critically and explore solutions to real-world challenges.
+      </p>
+      <p><strong>Key Features:</strong> Digital archive of student works, interactive research tools, AI-powered guidance, and mentor collaboration.</p>
+      <p><strong>Purpose:</strong> To promote academic curiosity, strengthen analytical skills, and inspire student-led discoveries.</p>
+      <p><strong>Published:</strong> 2025 — A project by NNCHS researchers, developed to encourage excellence in scientific and creative inquiry.</p>
+    </div>
+  </section>
 
-    <!-- Single team image -->
-    <img src="logo.png" alt="NNCHS Research Team" class="team-image">
+  <!-- Creator Section -->
+  <section id="creator" class="fade-in">
+    <div class="container-bg">
+      <img src="team.jpg" alt="Creator Team" class="creator-img" />
+      <h1>About the Creators</h1>
+      <p>This website was proudly created by the NNCHS student research team (Group 4 Researchers):</p>
+      <ul>
+        <li>Umbay, Tristhan Jhid</li>
+        <li>Adorable, Kent Ivan P.</li>
+        <li>Balazon, Estephanie P.</li>
+        <li>Bula, Mhetchowee V.</li>
+        <li>Coopera, Cyra Nicole</li>
+        <li>De Asis, John Carlo</li>
+        <li>Flores, Mich Glaidel M.</li>
+        <li>Laurente, Saile John</li>
+        <li>Nacario, Prince Angelo J.</li>
+        <li>Pesodas, Princess Niebell L.</li>
+        <li>Piquero, Christopher</li>
+      </ul>
+    </div>
+  </section>
 
-    <!-- Team Members List -->
-    <p><strong>Team Members:</strong></p>
-    <ul style="text-align:left; margin:15px 0; line-height:1.6;">
-      <li>Umbay, Tristhan Jhid</li>
-      <li>Adorable, Kent Ivan P.</li>
-      <li>Balazon, Estephanie P.</li>
-      <li>Bula, Mhetchowee V.</li>
-      <li>Coopera, Cyra Nicole</li>
-      <li>De Asis, John Carlo</li>
-      <li>Flores, Mich Glaidel M.</li>
-      <li>Laurente, Saile John</li>
-      <li>Nacario, Prince Angelo J.</li>
-      <li>Pesodas, Princess Niebell L.</li>
-      <li>Piquero, Christopher</li>
-    </ul>
+  <footer>
+    © 2025 NNCHS Research Hub | Created by Group 4 Researchers
+  </footer>
 
-    <p>
-      Together, this team combines technical skills, research knowledge, and creativity to provide students with an engaging and effective digital research platform.
-    </p>
-  </div>
-</section>
+  <script>
+    // Scroll fade-in animation
+    const fadeEls = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.style.opacity = 1;
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => observer.observe(el));
 
-<footer>© 2025 NNCHS Research Hub</footer>
-
-<script>
-// Dark/Light Mode from index.html
-window.addEventListener("load", ()=>{
-  if(localStorage.getItem("darkMode")==="true"){
-    document.body.classList.remove("light-mode");
-  } else {
-    document.body.classList.add("light-mode");
-  }
-});
-</script>
-
+    // Apply theme from localStorage
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light-mode");
+    }
+  </script>
 </body>
 </html>
-
